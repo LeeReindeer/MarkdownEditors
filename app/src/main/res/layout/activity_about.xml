@@ -20,7 +20,7 @@
               android:layout_width="match_parent"
               android:orientation="vertical"
               android:layout_height="match_parent"
-              tools:context=".view.EditorActivity"
+    tools:context="moe.leer.markdowneditor.view.EditorActivity"
 >
     <include layout="@layout/view_common_toolbar_scroll"/>
     <android.support.v4.widget.NestedScrollView

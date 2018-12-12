@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="ren.qinc.markdowneditors"
+<manifest package="moe.leer.markdowneditor"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 联网 -->
@@ -18,7 +18,7 @@
         android:xlargeScreens="true"/>
 
     <application
-        android:name=".AppContext"
+        android:name="moe.leer.markdowneditor.AppContext"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -27,7 +27,7 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
         <activity
-            android:name=".view.MainActivity"
+            android:name="moe.leer.markdowneditor.view.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar.CustomCursor"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
@@ -37,30 +37,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.AboutActivity"
+            android:name="moe.leer.markdowneditor.view.AboutActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:launchMode="singleTop"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
         <activity
-            android:name=".view.CommonMarkdownActivity"
+            android:name="moe.leer.markdowneditor.view.CommonMarkdownActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
         <activity
-            android:name=".view.CommonImageDetailsActivity"
+            android:name="moe.leer.markdowneditor.view.CommonImageDetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
         <activity
-            android:name=".base.BaseWebActivity"
+            android:name="moe.leer.markdowneditor.base.BaseWebActivity"
             android:launchMode="singleTop"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="false"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden"/>
 
         <activity
-            android:name=".view.EditorActivity"
+            android:name="moe.leer.markdowneditor.view.EditorActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
