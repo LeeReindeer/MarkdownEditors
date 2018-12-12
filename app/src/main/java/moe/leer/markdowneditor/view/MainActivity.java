@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package ren.qinc.markdowneditors.view;
+package moe.leer.markdowneditor.view;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.IdRes;
@@ -29,11 +30,12 @@ import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import ren.qinc.markdowneditors.AppContext;
-import ren.qinc.markdowneditors.R;
-import ren.qinc.markdowneditors.base.BaseDrawerLayoutActivity;
-import ren.qinc.markdowneditors.base.BaseFragment;
-import ren.qinc.markdowneditors.utils.Toast;
+import moe.leer.markdowneditor.AppContext;
+import moe.leer.markdowneditor.AppManager;
+import moe.leer.markdowneditor.R;
+import moe.leer.markdowneditor.base.BaseDrawerLayoutActivity;
+import moe.leer.markdowneditor.base.BaseFragment;
+import moe.leer.markdowneditor.utils.Toast;
 
 /**
  * The type Main activity.
@@ -46,7 +48,7 @@ public class MainActivity extends BaseDrawerLayoutActivity {
 
 
   private int currentMenuId;
-
+  private long customTime = 0;
 
   @Override
   protected void onDestroy() {
@@ -84,6 +86,7 @@ public class MainActivity extends BaseDrawerLayoutActivity {
   private void requestPermission() {
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
         PackageManager.PERMISSION_GRANTED) {
+
       ActivityCompat.requestPermissions(
           this,
           new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -97,9 +100,23 @@ public class MainActivity extends BaseDrawerLayoutActivity {
       if (grantResults.length == 0
           || grantResults[0] == PackageManager.PERMISSION_DENIED) {
         android.widget.Toast.makeText(this, R.string.turn_on_permission, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.fromParts("package", getPackageName(), null));
-        startActivity(intent);
+        String permission = permissions[0];
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+          boolean showRationale = shouldShowRequestPermissionRationale(permission);
+          if (!showRationale) {
+            // user checked never ask again
+            // goto setting
+            android.widget.Toast.makeText(this, R.string.turn_on_permission, Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.fromParts("package", getPackageName(), null));
+            startActivity(intent);
+          } else {
+            requestPermission();
+          }
+        } else {
+          // close app
+          AppManager.getAppManager().AppExit(this);
+        }
       }
     }
   }
@@ -132,7 +149,6 @@ public class MainActivity extends BaseDrawerLayoutActivity {
     return currentMenuId;
   }
 
-
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     return super.onCreateOptionsMenu(menu);
@@ -158,8 +174,6 @@ public class MainActivity extends BaseDrawerLayoutActivity {
     }
     return super.onOptionsItemSelected(item);// || mCurrentFragment.onOptionsItemSelected(item);
   }
-
-  private long customTime = 0;
 
   @Override
   public void onBackPressed() {//返回按钮
