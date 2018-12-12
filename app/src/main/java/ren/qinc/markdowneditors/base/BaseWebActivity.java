@@ -50,8 +50,6 @@ import android.widget.TextView;
 import com.daimajia.numberprogressbar.NumberProgressBar;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import ren.qinc.markdowneditors.R;
 import ren.qinc.markdowneditors.utils.Check;
 import ren.qinc.markdowneditors.utils.Network;
@@ -71,8 +69,6 @@ public class BaseWebActivity extends BaseToolbarActivity {
   public static final String CONTENT_KEY = "extra_content";
   public static final String URL_KEY = "extra_url";
   public static final String TITLE_KEY = "extra_title";
-
-  private Unbinder unbinder;
 
   @BindView(R.id.progressbar)
   protected NumberProgressBar mProgressBar;
@@ -98,13 +94,11 @@ public class BaseWebActivity extends BaseToolbarActivity {
 
   @Override
   public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
-    unbinder = ButterKnife.bind(this, parent);
     return super.onCreateView(parent, name, context, attrs);
   }
 
   @Override
   protected void onDestroy() {
-    unbinder.unbind();
     if (mWebView != null) {
       mWebView.pauseTimers();
       mWebView.stopLoading();

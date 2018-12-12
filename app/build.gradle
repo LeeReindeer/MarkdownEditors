@@ -92,7 +92,7 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
 
-    implementation 'com.daimajia.numberprogressbar:library:1.2@aar'
+    implementation 'com.daimajia.numberprogressbar:library:1.4@aar'
     implementation 'com.kaopiz:kprogresshud:1.0.5'
 
     implementation 'com.github.michael-rapp:android-bottom-sheet:1.3.0'

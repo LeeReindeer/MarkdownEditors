@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2016. SHENQINCI(沈钦赐)<dev@qinc.me>
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,14 +15,14 @@
   -->
 
 <resources>
-    <string name="Description" >Description</string>
+    <string name="Description">Description</string>
     <string name="sure">sure</string>
     <string name="serverurl">test</string>
     <string name="please_enter">please input</string>
     <string name="create_folder">Create Folder</string>
-    <string name="contact_me">Contact with us</string>
+    <string name="contact_me">Contact with me</string>
     <string name="connect_with_us">Contact with us</string>
-    <string name="about">about</string>
+    <string name="about">About</string>
     <string name="action_copy">copy</string>
     <string name="action_create_file">create</string>
     <string name="action_copy_url">copy link</string>
@@ -48,15 +47,27 @@
     <string name="action_setting">setting</string>
     <string name="action_share">share</string>
     <string name="action_undo">undo</string>
-    <string name="advertise_with_us">advertise whith us</string>
+    <!--<string name="advertise_with_us">advertise whith us</string>-->
     <string name="file">file</string>
     <string name="menu_web_horizontal">horizontal</string>
     <string name="menu_web_vertical">vertical</string>
-    <string name="navigation_drawer_close" >Close navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="share_copy_text">Copy text</string>
     <string name="share_html">Share html</string>
     <string name="share_md">Share md</string>
     <string name="share_png">Share png</string>
     <string name="share_text">Share text</string>
+    <string name="contact_origin_author">Contact origin author</string>
+    <string name="open_source">GitHub</string>
+    <string name="turn_on_permission">Please please turn on permission</string>
+
+    <!--menu-->
+    <string name="store">Repository</string>
+    <string name="local_store">Local</string>
+    <string name="nut_store">Nutstore</string>
+    <string name="menu_others">Others</string>
+    <string name="menu_syntax">Syntax help</string>
+    <string name="menu_check_update">Check update</string>
+    <string name="menu_about">About</string>
 </resources>

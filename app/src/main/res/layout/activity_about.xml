@@ -51,7 +51,8 @@
                 android:layout_marginRight="20dp"
                 android:lineSpacingExtra="@dimen/space_8"
                 android:textColor="@color/c_595959"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                tools:text="MarkdownEditors" />
 
             <View
                 android:layout_width="match_parent"
@@ -63,34 +64,40 @@
                 style="@style/about_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_version"
                 android:background="?android:attr/selectableItemBackground"
-                android:drawablePadding="8dp"/>
+                android:drawablePadding="8dp"
+                tools:text="0.2" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_05"
                 android:background="@color/c_e1e1e1"/>
             <!-- ================= -->
-            <TextView
-                android:id="@+id/ad_contact_me"
-                style="@style/about_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:drawablePadding="8dp"
-                android:text="@string/advertise_with_us"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/space_05"
-                android:background="@color/c_e1e1e1"/>
 
             <TextView
                 style="@style/about_goup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="@dimen/space_8"
-                android:text="@string/connect_with_us"/>
+                android:text="@string/connect_with_us" />
+
+
+            <TextView
+                android:id="@+id/contact_origin_author"
+                style="@style/about_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:drawableStart="@drawable/about_icon_email"
+                android:drawablePadding="8dp"
+                android:text="@string/contact_origin_author" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_05"
+                android:background="@color/c_e1e1e1"/>
 
             <TextView
                 android:id="@+id/contact_me"
@@ -98,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
-                android:drawableLeft="@drawable/about_icon_email"
+                android:drawableStart="@drawable/about_icon_email"
                 android:drawablePadding="8dp"
                 android:text="@string/contact_me"/>
 
@@ -107,30 +114,15 @@
                 android:layout_height="@dimen/space_05"
                 android:background="@color/c_e1e1e1"/>
 
-            <!--<TextView-->
-                <!--android:id="@+id/about_link"-->
-                <!--style="@style/about_item"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:background="?android:attr/selectableItemBackground"-->
-                <!--android:drawableLeft="@drawable/about_icon_link"-->
-                <!--android:drawablePadding="8dp"-->
-                <!--android:text="访问我们的网站"/>-->
-
-            <!--<View-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="@dimen/space_05"-->
-                <!--android:background="@color/c_e1e1e1"/>-->
-
             <TextView
                 android:id="@+id/about_github"
                 style="@style/about_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
-                android:drawableLeft="@drawable/about_icon_github"
+                android:drawableStart="@drawable/about_icon_github"
                 android:drawablePadding="8dp"
-                android:text="项目开源地址"/>
+                android:text="@string/open_source" />
 
             <View
                 android:layout_width="match_parent"
@@ -150,9 +142,9 @@
                     style="@style/about_item"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/about_icon_copy_right"
+                    android:drawableStart="@drawable/about_icon_copy_right"
                     android:drawablePadding="8dp"
-                    android:gravity="center"
+                    android:gravity="start"
                     android:text="@string/copy_right"/>
             </LinearLayout>
         </LinearLayout>

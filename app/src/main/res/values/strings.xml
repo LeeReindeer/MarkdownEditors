@@ -58,15 +58,25 @@
     <string name="action_setting">设置</string>
     <string name="about">关于</string>
 
-    <string name="copy_right" translatable="false">Copyrights © 2016</string>
+    <string name="copy_right" translatable="false">Copyrights © qinc 2016\nCopyrights © LeeR 2018</string>
     <string name="version_string" translatable="false">Version %s</string>
-    <string name="contact_me">联系我们</string>
+    <string name="contact_me">与我联系</string>
     <string name="connect_with_us">与我们联系</string>
-    <string name="advertise_with_us">广告联系</string>
+    <!--<string name="advertise_with_us">广告联系</string>-->
 
     <string name="share_copy_text">复制为文本</string>
     <string name="share_text">分享为文本</string>
     <string name="share_md">分享为MD文件(.md)</string>
     <string name="share_html">分享为HTML文本(.html)</string>
     <string name="share_png">分享为图片(.png)</string>
+    <string name="contact_origin_author">联系原作者</string>
+    <string name="open_source">项目开源地址</string>
+    <string name="turn_on_permission">请打开权限(๑•́ ₃ •̀๑)</string>
+    <string name="store">仓库</string>
+    <string name="local_store">本地</string>
+    <string name="nut_store">坚果云</string>
+    <string name="menu_others">其他</string>
+    <string name="menu_syntax">参考语法</string>
+    <string name="menu_check_update">检测更新</string>
+    <string name="menu_about">关于</string>
 </resources>
