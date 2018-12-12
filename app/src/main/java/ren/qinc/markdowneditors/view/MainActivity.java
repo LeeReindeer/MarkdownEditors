@@ -15,8 +15,16 @@
  */
 package ren.qinc.markdowneditors.view;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +39,9 @@ import ren.qinc.markdowneditors.utils.Toast;
  * The type Main activity.
  */
 public class MainActivity extends BaseDrawerLayoutActivity {
+
+  private final static int REQUEST_PERMISSION = 915;
+
   private BaseFragment mCurrentFragment;
 
 
@@ -58,7 +69,7 @@ public class MainActivity extends BaseDrawerLayoutActivity {
     if (savedInstanceState == null) {
       setDefaultFragment(R.id.content_fragment_container);
     }
-
+    requestPermission();
     initUpdate(false);
   }
 
@@ -70,6 +81,29 @@ public class MainActivity extends BaseDrawerLayoutActivity {
         .commit();
   }
 
+  private void requestPermission() {
+    if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+        PackageManager.PERMISSION_GRANTED) {
+      ActivityCompat.requestPermissions(
+          this,
+          new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+          REQUEST_PERMISSION);
+    }
+  }
+
+  @Override
+  public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    if (requestCode == REQUEST_PERMISSION) {
+      if (grantResults.length == 0
+          || grantResults[0] == PackageManager.PERMISSION_DENIED) {
+        android.widget.Toast.makeText(this, R.string.turn_on_permission, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.fromParts("package", getPackageName(), null));
+        startActivity(intent);
+      }
+    }
+  }
+
   @Override
   public void initData() {
   }
@@ -77,7 +111,7 @@ public class MainActivity extends BaseDrawerLayoutActivity {
   @Override
   public boolean onNavigationItemSelected(MenuItem item) {
     int id = item.getItemId();
-    if (id == R.id.localhost) {//|| id == R.id.other
+    if (id == R.id.menu_local) {//|| id == R.id.other
       if (id == currentMenuId) {
         return false;
       }
@@ -94,7 +128,7 @@ public class MainActivity extends BaseDrawerLayoutActivity {
 
   @Override
   protected int getDefaultMenuItemId() {
-    currentMenuId = R.id.localhost;
+    currentMenuId = R.id.menu_local;
     return currentMenuId;
   }
 
@@ -118,7 +152,7 @@ public class MainActivity extends BaseDrawerLayoutActivity {
       case R.id.menu_update:
         initUpdate(true);
         return true;
-      case R.id.other:
+      case R.id.menu_nutstore:
         AppContext.showSnackbar(getWindow().getDecorView(), "敬请期待");
         return true;
     }
