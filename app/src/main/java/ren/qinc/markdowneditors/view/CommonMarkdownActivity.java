@@ -23,7 +23,7 @@ import android.support.annotation.NonNull;
 
 import java.io.InputStream;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import ren.qinc.markdowneditors.R;
 import ren.qinc.markdowneditors.base.BaseToolbarActivity;
 import ren.qinc.markdowneditors.utils.Check;
@@ -36,63 +36,62 @@ import ren.qinc.markdowneditors.widget.MarkdownPreviewView;
  * Created by 沈钦赐 on 16/6/30.
  */
 public class CommonMarkdownActivity extends BaseToolbarActivity implements MarkdownPreviewView.OnLoadingFinishListener {
-    private static final String CONTENT = "CONTENT";
-    private static final String TITLE = "TITLE";
-    @Bind(R.id.markdownView)
-    protected MarkdownPreviewView mMarkdownPreviewView;
-    private String mTitle;
-    private String mContent;
+  private static final String CONTENT = "CONTENT";
+  private static final String TITLE = "TITLE";
+  @BindView(R.id.markdownView)
+  protected MarkdownPreviewView mMarkdownPreviewView;
+  boolean flag = true;
+  private String mTitle;
+  private String mContent;
 
-    public static void startMarkdownActivity(Context context, String title, String content) {
-        Intent intent = new Intent(context, CommonMarkdownActivity.class);
-        intent.putExtra(CONTENT, content);
-        intent.putExtra(TITLE, title);
-        context.startActivity(intent);
+  public static void startMarkdownActivity(Context context, String title, String content) {
+    Intent intent = new Intent(context, CommonMarkdownActivity.class);
+    intent.putExtra(CONTENT, content);
+    intent.putExtra(TITLE, title);
+    context.startActivity(intent);
+  }
+
+  public static void startHelper(Context context) {
+    InputStream inputStream = context.getResources().openRawResource(R.raw.syntax_hepler);
+    startMarkdownActivity(context, context.getString(R.string.action_helper), new String(SystemUtils.readInputStream(inputStream)));
+  }
+
+  @Override
+  protected boolean hasBackButton() {
+    return true;
+  }
+
+  @Override
+  public int getLayoutId() {
+    return R.layout.activity_common_markdown;
+  }
+
+  @Override
+  public void onCreateAfter(Bundle savedInstanceState) {
+    mTitle = getIntent().getStringExtra(TITLE);
+    mContent = getIntent().getStringExtra(CONTENT);
+    Check.CheckNull(mTitle, "标题不能为空");
+    Check.CheckNull(mContent, "内容不能为空");
+    mMarkdownPreviewView.setOnLoadingFinishListener(this);
+
+  }
+
+  @Override
+  public void initData() {
+  }
+
+  @NonNull
+  @Override
+  protected String getTitleString() {
+    return getIntent().getStringExtra(TITLE);
+  }
+
+  @Override
+  public void onLoadingFinish() {
+    if (flag) {
+      flag = false;
+      mMarkdownPreviewView.parseMarkdown(mContent, true);
     }
-
-    public static void startHelper(Context context) {
-        InputStream inputStream = context.getResources().openRawResource(R.raw.syntax_hepler);
-        startMarkdownActivity(context, context.getString(R.string.action_helper), new String(SystemUtils.readInputStream(inputStream)));
-    }
-
-    @Override
-    protected boolean hasBackButton() {
-        return true;
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.activity_common_markdown;
-    }
-
-    @Override
-    public void onCreateAfter(Bundle savedInstanceState) {
-        mTitle = getIntent().getStringExtra(TITLE);
-        mContent = getIntent().getStringExtra(CONTENT);
-        Check.CheckNull(mTitle, "标题不能为空");
-        Check.CheckNull(mContent, "内容不能为空");
-        mMarkdownPreviewView.setOnLoadingFinishListener(this);
-
-    }
-
-    @Override
-    public void initData() {
-    }
-
-    @NonNull
-    @Override
-    protected String getTitleString() {
-        return getIntent().getStringExtra(TITLE);
-    }
-
-    boolean flag = true;
-
-    @Override
-    public void onLoadingFinish() {
-        if (flag) {
-            flag = false;
-            mMarkdownPreviewView.parseMarkdown(mContent, true);
-        }
-    }
+  }
 
 }

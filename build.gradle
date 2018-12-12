@@ -2,15 +2,14 @@
 
 buildscript {
     repositories {
+        google()
         maven { url 'http://uk.maven.org/maven2' }
         jcenter()
         // maven
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
-        // retro lambda
-        classpath 'me.tatarka:gradle-retrolambda:3.2.4'
+        classpath 'com.android.tools.build:gradle:3.2.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -19,6 +18,7 @@ buildscript {
 
 allprojects {
     repositories {
+        google()
         jcenter()
         // maven
         mavenCentral()

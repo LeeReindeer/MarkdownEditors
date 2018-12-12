@@ -40,11 +40,11 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 
 import com.kaopiz.kprogresshud.KProgressHUD;
-import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.Field;
 
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import ren.qinc.markdowneditors.AppManager;
 import ren.qinc.markdowneditors.event.RxEvent;
 import ren.qinc.markdowneditors.event.RxEventBus;
@@ -61,6 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     protected BaseApplication application;
     protected LayoutInflater inflater;
     protected Context mContext;
+    protected Unbinder unbinder;
 
     /**
      * On create.
@@ -81,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
         if (getLayoutId() != 0) {// 设置布局,如果子类有返回布局的话
             setContentView(getLayoutId());
-            ButterKnife.bind(this);
+            unbinder = ButterKnife.bind(this);
         } else {
             //没有提供ViewId
             throw new IllegalStateException(this.getClass().getSimpleName() + "没有提供正确的LayoutId");
@@ -101,18 +102,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     @Override
     protected void onResume() {
         super.onResume();
-        //友盟统计
-        MobclickAgent.onPageStart(this.getClass().getSimpleName());
-        MobclickAgent.onResume(getApplicationContext());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //友盟统计
-        MobclickAgent.onPageEnd(this.getClass().getSimpleName());
-        MobclickAgent.onPause(getApplicationContext());
-
     }
 
     @Override
@@ -121,7 +115,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         unregisterEvent();
         //移除任务栈
         AppManager.getAppManager().removeActivity(this);
-        ButterKnife.unbind(this);//解绑定
+        unbinder.unbind();
         super.onDestroy();
     }
 
@@ -395,7 +389,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                                 }
 
                                 mActionModeViewFinal.removeAllViews();
-                                mFadeAnimFinal.setListener((ViewPropertyAnimatorListener) null);
+                                mFadeAnimFinal.setListener(null);
 
                                 try {
                                     if (mFadeAnimFieldFinal != null) {

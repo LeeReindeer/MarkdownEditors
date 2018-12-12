@@ -21,7 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.TextView;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import ren.qinc.markdowneditors.R;
 import ren.qinc.markdowneditors.base.BaseFragment;
 import ren.qinc.markdowneditors.event.RxEvent;
@@ -32,68 +32,68 @@ import ren.qinc.markdowneditors.widget.MarkdownPreviewView;
  * Created by 沈钦赐 on 16/1/21.
  */
 public class EditorMarkdownFragment extends BaseFragment {
-    @Bind(R.id.markdownView)
-    protected MarkdownPreviewView mMarkdownPreviewView;
-    @Bind(R.id.title)
-    protected TextView mName;
-    private String mContent;
+  @BindView(R.id.markdownView)
+  protected MarkdownPreviewView mMarkdownPreviewView;
+  @BindView(R.id.title)
+  protected TextView mName;
+  private String mContent;
 
 
-    public EditorMarkdownFragment() {
+  public EditorMarkdownFragment() {
+  }
+
+  public static EditorMarkdownFragment getInstance() {
+    EditorMarkdownFragment editorFragment = new EditorMarkdownFragment();
+    return editorFragment;
+  }
+
+
+  @Override
+  public boolean hasNeedEvent(int type) {
+    //接受刷新数据
+    return type == RxEvent.TYPE_REFRESH_DATA;
+  }
+
+  boolean isPageFinish = false;
+
+  @Override
+  public void onEventMainThread(RxEvent event) {
+    if (event.isTypeAndData(RxEvent.TYPE_REFRESH_DATA)) {
+      //页面还没有加载完成
+      mContent = event.o[1].toString();
+      mName.setText(event.o[0].toString());
+      if (isPageFinish)
+        mMarkdownPreviewView.parseMarkdown(mContent, true);
     }
+  }
 
-    public static EditorMarkdownFragment getInstance() {
-        EditorMarkdownFragment editorFragment = new EditorMarkdownFragment();
-        return editorFragment;
-    }
+  @Override
+  public int getLayoutId() {
+    return R.layout.fragment_markdown;
+  }
 
+  @Override
+  public void onCreateAfter(Bundle savedInstanceState) {
+    mMarkdownPreviewView.setOnLoadingFinishListener(() -> {
+      if (!isPageFinish && mContent != null)//
+        mMarkdownPreviewView.parseMarkdown(mContent, true);
+      isPageFinish = true;
+    });
+  }
 
-    @Override
-    public boolean hasNeedEvent(int type) {
-        //接受刷新数据
-        return type == RxEvent.TYPE_REFRESH_DATA;
-    }
+  @Override
+  public boolean hasMenu() {
+    return true;
+  }
 
-    boolean isPageFinish = false;
-
-    @Override
-    public void onEventMainThread(RxEvent event) {
-        if (event.isTypeAndData(RxEvent.TYPE_REFRESH_DATA)) {
-            //页面还没有加载完成
-            mContent = event.o[1].toString();
-            mName.setText(event.o[0].toString());
-            if (isPageFinish)
-                mMarkdownPreviewView.parseMarkdown(mContent, true);
-        }
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_markdown;
-    }
-
-    @Override
-    public void onCreateAfter(Bundle savedInstanceState) {
-        mMarkdownPreviewView.setOnLoadingFinishListener(() -> {
-            if (!isPageFinish && mContent != null)//
-                mMarkdownPreviewView.parseMarkdown(mContent, true);
-            isPageFinish = true;
-        });
-    }
-
-    @Override
-    public boolean hasMenu() {
-        return true;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_editor_preview_frag, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+  @Override
+  public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    inflater.inflate(R.menu.menu_editor_preview_frag, menu);
+    super.onCreateOptionsMenu(menu, inflater);
+  }
 
 
-    @Override
-    public void initData() {
-    }
+  @Override
+  public void initData() {
+  }
 }
